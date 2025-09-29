@@ -53,8 +53,8 @@ export const patchContactsController = async (req, res, next) => {
         next(createHttpError(404, "Contact not found"));
     }
 
-        res.status(201).json({
-        status: 201,
+        res.status(200).json({
+        status: 200,
         message: `Successfully created a student!`,
         data: result.contact,
     });
