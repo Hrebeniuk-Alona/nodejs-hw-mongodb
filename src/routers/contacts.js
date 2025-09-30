@@ -13,7 +13,7 @@ const router = Router();
  router.post('/contacts', ctrlWrapper(createContactsController));
  
  
- router.put('/contacts/:contactId', ctrlWrapper(patchContactsController)); 
+ router.patch('/contacts/:contactId', ctrlWrapper(patchContactsController)); 
 
 router.delete('/contacts/:contactId', ctrlWrapper(deleteContactsController));
 

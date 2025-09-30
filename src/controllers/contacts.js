@@ -45,20 +45,21 @@ export const createContactsController = async (req, res) => {
 export const patchContactsController = async (req, res, next) => {
     const { contactId } = req.params;
 
-    const result = await updateContact(contactId, req.body, {
-        upsert: true,
-    });
+    const result = await updateContact(contactId, req.body);
 
     if (!result) {
         next(createHttpError(404, "Contact not found"));
+        return;
     }
 
-        res.status(200).json({
+        res.json({
         status: 200,
         message: `Successfully created a student!`,
         data: result.contact,
     });
 };
+
+
 
 export const deleteContactsController = async (req, res, next) => {
     const { contactId } = req.params;
