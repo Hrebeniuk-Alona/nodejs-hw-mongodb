@@ -6,8 +6,10 @@ export const createContactSchema = Joi.object({
         'string.min': 'Name should have at least 3 characters',
         'string.max': 'Name should not exceed 20 characters',
     }),
-    phoneNumber: Joi.number().required().messages({
+    phoneNumber: Joi.string().min(3).max(20).required().messages({
         'any.required': 'Phone number is required',
+        'string.min': 'NPhone number should have at least 3 characters',
+        'string.max': 'Phone number should not exceed 20 characters',
     }),
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required().messages({
         'any.required': 'Email is required',
