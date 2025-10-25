@@ -1,0 +1,66 @@
+tags:
+  - Auth
+summary: Register a new user
+operationId: registerUser
+description: 'Register a new user by email and password. Returns created user data without password.'
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            example: 'John Cena'
+            description: 'User full name, 3-30 characters'
+          email:
+            type: string
+            example: 'john_cena@example.com'
+            format: email
+            description: 'Email of user. Must be a valid email format.'
+          password:
+            type: string
+            format: password
+            example: 'johnCena2212'
+            description: 'Password, minimum 6 characters'
+responses:
+  '201':
+    description: 'Successfully registered a user!'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Successfully registered a user!'
+            data:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: 65e4decdd386b31065d54af8
+                name:
+                  type: string
+                  example: 'John Cena'
+                email:
+                  type: string
+                  example: 'john_cena@example.com'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+
+  '409':
+    $ref: '../../components/responses/409.yaml'

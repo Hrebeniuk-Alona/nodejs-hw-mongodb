@@ -1,0 +1,75 @@
+tags:
+  - Contacts
+summary: Update contact
+operationId: updateContact
+description: 'Update a contact. Only the owner (userId) can update.'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            description: "Contact's name"
+            type: string
+            example: 'John Doe'
+          phoneNumber:
+            description: 'Phone number of contact'
+            type: string
+            example: '+380678902367'
+          email:
+            description: 'Email of contact'
+            type: string
+            example: 'john_cena@example.com'
+          isFavorite:
+            description: 'Indicates favourite contact'
+            type: boolean
+            example: false
+          contactType:
+            description: "Type of contact: 'work', 'home', 'personal'"
+            type: string
+            enum:
+              - work
+              - home
+              - personal
+            example: 'home'
+          photo:
+            description: "Contacts's photo"
+            type: string
+            format: binary
+responses:
+  '200':
+    description: Successfully updated a contact
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully updated a contact
+            data:
+              type: object
+              $ref: '../../../components/schemas/contact.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '400':
+    $ref: '../../../components/responses/400.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

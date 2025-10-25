@@ -1,0 +1,65 @@
+tags:
+  - Auth
+summary: Login user
+operationId: loginUser
+description: 'Authenticate a user by using email and password. Returns an access token.'
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            example: 'john_cena@example.com'
+            format: email
+            description: 'Email of user. Must be a valid email format.'
+          password:
+            type: string
+            format: password
+            example: 'johnCena2212'
+            description: 'Password, minimum 6 characters'
+responses:
+  '200':
+    description: 'Successfully logged in a user!'
+    headers:
+      Set-Cookie:
+        description: Cookies set after successful login.
+        schema:
+          type: array
+          items:
+            type: string
+            example:
+              - session_id=qwe123; Path=/; HttpOnly;
+              - refresh_token=scf789; Path=/; HttpOnly;
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully logged in an user!'
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: 'XyZ12AbC34DefGhI56JkLmNoP78QrStUvWxYz90AaBb'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+
+  '401':
+    $ref: '../../components/responses/401.yaml'
